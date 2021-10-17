@@ -3,6 +3,8 @@ import {Avatar, IconButton} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import MicNoneIcon from '@mui/icons-material/MicNone';
 import './css/chat.css'
 function Chat() {
     return (
@@ -39,11 +41,20 @@ function Chat() {
                     <span className='chat__name'>
                         Name
                     </span>
-                    Message...
+                    Message Reply...
                     <span className = 'chat__time'>
                         Time
                     </span>
                 </p>
+            </div>
+            <div className = 'chat__footer'>
+                <InsertEmoticonIcon/>
+                <AttachFileIcon />
+                <form>
+                    <input type = 'text' placeholder = 'Type your message'/>
+                    <input type = 'submit' />
+                </form>
+                <MicNoneIcon/>
             </div>
         </div>    
     )
