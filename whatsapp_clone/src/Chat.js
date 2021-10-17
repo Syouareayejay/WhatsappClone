@@ -25,6 +25,26 @@ function Chat() {
                     </IconButton> 
                 </div>
             </div>
+            <div className='chat__body'>
+                <p className='chat__message'>
+                    <span className='chat__name'>
+                        Name
+                    </span>
+                    Message...
+                    <span className = 'chat__time'>
+                        Time
+                    </span>
+                </p>
+                <p className='chat__message chat__reciever'>
+                    <span className='chat__name'>
+                        Name
+                    </span>
+                    Message...
+                    <span className = 'chat__time'>
+                        Time
+                    </span>
+                </p>
+            </div>
         </div>    
     )
 }
