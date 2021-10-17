@@ -42,3 +42,33 @@
     outline: 0;
     width: 100%;
 }
+/*Sidebar Chat*/
+.sidebar__Chats{
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+}
+.sidebar__chat{
+    display:flex;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px;
+}
+.sidebar__chat:hover{
+    cursor: pointer;
+    background-color: #ebebeb;
+}
+.sidebar___chatInfo{
+    margin: 15px;
+}
+.sidebar___chatInfo h2{
+    font-size: 16px;
+}
+.sidebar___chatInfo p{
+    font-size: 12px;
+}
+.sidebar__chat > h2{
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}

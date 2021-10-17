@@ -33,6 +33,9 @@ function Sidebar() {
             </div>
             {/*Sidebar Chat*/}
             <div className="sidebar__Chats">
+                <SidebarChat addnewchat/>
+                <SidebarChat />
+                <SidebarChat />
                 <SidebarChat />
             </div>
         </div>

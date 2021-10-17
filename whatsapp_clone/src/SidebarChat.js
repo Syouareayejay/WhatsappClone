@@ -1,14 +1,28 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import {Avatar} from '@mui/material'
-function SidebarChat() {
+import "./css/sidebar.css"
+
+function SidebarChat({addnewchat}) {
+    const [seed,setSeed] = useState("")
+    useEffect(() => {
+        setSeed(Math.floor(Math.random()*5000))
+    }, [])
     return (
-        <div className='sidebar__chat'>
-            <Avatar />
-            <div className = 'sidebar___chatInfo'>
-                <h2> React </h2>
-                <p> Last Message... </p>
+        addnewchat ? 
+        (
+            <div className = "sidebar__chat">
+                <h2>Add new chat</h2>
             </div>
-        </div>
+        ) : 
+        (
+            <div className='sidebar__chat'>
+                <Avatar src = {`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
+                <div className = 'sidebar___chatInfo'>
+                    <h2> React </h2>
+                    <p> Last Message... </p>
+                </div>
+            </div>
+        )
     )
 }
 
