@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Avatar, IconButton} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -6,13 +6,25 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import './css/chat.css'
+import {useParams} from 'react-router-dom'
+import db from './firebase';
 function Chat() {
+    const {roomId} = useParams();
+    const [roomName, setRoomName] = useState("");
+
+    useEffect(() => {
+        if(roomId){
+            db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
+                setRoomName(snapshot.data().name)
+            })
+        }
+    }, [roomId])
     return (
         <div className = 'chat'>
             <div className = "chat__header">
                 <Avatar />
                 <div className="chat__headerInfo">
-                    <h3>Room:</h3>
+                    <h3>{roomName}</h3>
                     <p>Last seen:</p>
                 </div>
                 <div className="header__right">

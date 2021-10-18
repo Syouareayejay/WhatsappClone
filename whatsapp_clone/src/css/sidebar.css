@@ -63,9 +63,11 @@
 }
 .sidebar___chatInfo h2{
     font-size: 16px;
+    color: black;
 }
 .sidebar___chatInfo p{
     font-size: 12px;
+    color: black;
 }
 .sidebar__chat > h2{
     font-size: 18px;

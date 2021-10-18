@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from 'react'
+import { Link } from 'react-router-dom';
 import {Avatar} from '@mui/material'
 import "./css/sidebar.css"
 import db from './firebase';
@@ -24,13 +25,15 @@ function SidebarChat({id,name,addnewchat}) {
             </div>
         ) : 
         (
-            <div className='sidebar__chat'>
-                <Avatar src = {`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
-                <div className = 'sidebar___chatInfo'>
-                    <h2> {name} </h2>
-                    <p> Last Message... </p>
+            <Link to = {`/room/${id}`} style={{ textDecoration: 'none' }}>
+                <div className='sidebar__chat'>
+                    <Avatar src = {`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
+                    <div className = 'sidebar___chatInfo'>
+                        <h2> {name} </h2>
+                        <p> Last Message... </p>
+                    </div>
                 </div>
-            </div>
+            </Link>
         )
     )
 }
