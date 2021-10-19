@@ -13,7 +13,8 @@ function Chat() {
     const {roomId} = useParams();
     const [roomName, setRoomName] = useState("");
     const [input, setInput] = useState('');
-    
+    const [messages,setMessages] = useState([]);
+
     const sendMessage = e => {
         e.preventDefault();
         if(input === ''){
@@ -31,9 +32,13 @@ function Chat() {
         if(roomId){
             db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
                 setRoomName(snapshot.data().name)
+            
+            db.collection('rooms').doc(roomId).collection('message').orderBy('timestamp','asc')
+            .onSnapshot(snapshot => {setMessages(snapshot.docs.map(doc=>doc.data()))})
             })
         }
     }, [roomId])
+
     return (
         <div className = 'chat'>
             <div className = "chat__header">
@@ -55,24 +60,20 @@ function Chat() {
                 </div>
             </div>
             <div className='chat__body'>
-                <p className='chat__message'>
-                    <span className='chat__name'>
-                        Name
-                    </span>
-                    Message...
-                    <span className = 'chat__time'>
-                        Time
-                    </span>
-                </p>
-                <p className='chat__message chat__reciever'>
-                    <span className='chat__name'>
-                        Name
-                    </span>
-                    Message Reply...
-                    <span className = 'chat__time'>
-                        Time
-                    </span>
-                </p>
+                {messages.map(message => (
+                    <p className='chat__message chat__sender'>
+                        <span className='chat__name'>
+                            {message.name}
+                        </span>
+                        {message.message}
+                        <span className = 'chat__time'>
+                            {
+                                new Date(message.timestamp?.seconds*1000).toLocaleTimeString()
+                            }
+                        </span>
+                    </p>
+                ))}
+                
             </div>
             <div className = 'chat__footer'>
                 <InsertEmoticonIcon/>

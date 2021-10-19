@@ -55,7 +55,7 @@
     font-size: 10px;
     margin-left: 10px;
 }
-.chat__reciever {
+.chat__sender {
     margin-left: auto;
     background-color: white !important;
 }
