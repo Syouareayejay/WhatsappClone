@@ -8,9 +8,24 @@ import MicNoneIcon from '@mui/icons-material/MicNone';
 import './css/chat.css'
 import {useParams} from 'react-router-dom'
 import db from './firebase';
+import firebase from 'firebase';
 function Chat() {
     const {roomId} = useParams();
     const [roomName, setRoomName] = useState("");
+    const [input, setInput] = useState('');
+    
+    const sendMessage = e => {
+        e.preventDefault();
+        if(input === ''){
+            return alert('Empty Msg')
+        }
+        db.collection('rooms').doc(roomId).collection('message').add({
+            name: 'Static Name',
+            message: input,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        setInput('')
+    }
 
     useEffect(() => {
         if(roomId){
@@ -62,8 +77,8 @@ function Chat() {
             <div className = 'chat__footer'>
                 <InsertEmoticonIcon/>
                 <AttachFileIcon />
-                <form>
-                    <input type = 'text' placeholder = 'Type your message'/>
+                <form onSubmit = {sendMessage} >
+                    <input type = 'text' placeholder = 'Type your message' value = {input} onChange = {e => {setInput(e.target.value)}} />
                     <input type = 'submit' />
                 </form>
                 <MicNoneIcon/>
