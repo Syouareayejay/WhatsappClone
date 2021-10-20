@@ -7,9 +7,12 @@ import {
 import './App.css';
 import Sidebar from './Sidebar.js'
 import Chat from './Chat.js'
+import Login from "./Login";
 function App() {
+  const user = null;
   return (
-      <Router>
+      !user?(<Login />):(
+        <Router>
         <Switch>    
           <div className="App">
             <div className ="app__body">
@@ -25,7 +28,9 @@ function App() {
             </div>
           </div>
         </Switch>
-      </Router>    
+      </Router>
+      )
+          
   );
 }
 
