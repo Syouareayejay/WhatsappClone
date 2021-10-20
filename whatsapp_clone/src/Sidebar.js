@@ -6,9 +6,13 @@ import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import db from './firebase';
+import { useStateValue } from './StateProvider';
+import firebase from 'firebase';
 function Sidebar() {
     const [rooms,setRooms] = useState([]);
+    const [{user},dispatch] = useStateValue();
     useEffect(()=>{
         db.collection('rooms').onSnapshot(snapshot => {
             setRooms(snapshot.docs.map(doc => {
@@ -23,7 +27,7 @@ function Sidebar() {
         <div className = "sidebar">
             {/*Top sidebar */}    
             <div className = "sidebar__header">
-                <Avatar/>
+                <Avatar src= {user.photoURL} />
                 <div className = "sidebar_headerRight">
                     <IconButton>
                         <DonutLargeIcon />
@@ -33,6 +37,9 @@ function Sidebar() {
                     </IconButton>
                     <IconButton>
                         <MoreVertIcon/>
+                    </IconButton>
+                    <IconButton>
+                        <ExitToAppIcon onClick = {e=>firebase.auth().signOut()} />
                     </IconButton>
                 </div>
             </div>

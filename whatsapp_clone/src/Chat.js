@@ -9,11 +9,13 @@ import './css/chat.css'
 import {useParams} from 'react-router-dom'
 import db from './firebase';
 import firebase from 'firebase';
+import { useStateValue } from './StateProvider';
 function Chat() {
     const {roomId} = useParams();
     const [roomName, setRoomName] = useState("");
     const [input, setInput] = useState('');
     const [messages,setMessages] = useState([]);
+    const [{user},dispatch] = useStateValue();
 
     const sendMessage = e => {
         e.preventDefault();
@@ -21,7 +23,7 @@ function Chat() {
             return alert('Empty Msg')
         }
         db.collection('rooms').doc(roomId).collection('message').add({
-            name: 'Static Name',
+            name: user.displayName,
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
@@ -61,7 +63,7 @@ function Chat() {
             </div>
             <div className='chat__body'>
                 {messages.map(message => (
-                    <p className='chat__message chat__sender'>
+                    <p className={`chat__message ${user.displayName == message.name && "chat__sender"}`}>
                         <span className='chat__name'>
                             {message.name}
                         </span>
