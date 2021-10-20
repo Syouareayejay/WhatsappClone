@@ -6,8 +6,10 @@ import db from './firebase';
 
 function SidebarChat({id,name,addnewchat}) {
     const [seed,setSeed] = useState("")
+    const [lastmessage, setLastmessage] = useState('')
     useEffect(() => {
         setSeed(Math.floor(Math.random()*5000))
+        db.collection('rooms').doc(id).collection('message').orderBy('timestamp','desc').onSnapshot(snapshot => setLastmessage(snapshot.docs.map(doc=>doc.data())))
     }, [])
     const createChat = () => {
         let room = prompt('Add new room')
@@ -17,6 +19,7 @@ function SidebarChat({id,name,addnewchat}) {
             })
         }
     }
+    console.log(lastmessage)
     return (
         addnewchat ? 
         (
@@ -30,7 +33,7 @@ function SidebarChat({id,name,addnewchat}) {
                     <Avatar src = {`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                     <div className = 'sidebar___chatInfo'>
                         <h2> {name} </h2>
-                        <p> Last Message... </p>
+                        <p> {lastmessage[0]?.message} </p>
                     </div>
                 </div>
             </Link>
