@@ -8,8 +8,10 @@ import './App.css';
 import Sidebar from './Sidebar.js'
 import Chat from './Chat.js'
 import Login from "./Login";
+import {useStateValue} from './StateProvider';
 function App() {
-  const user = null;
+  const [{user},dispatch] = useStateValue();
+  console.log(user,dispatch)
   return (
       !user?(<Login />):(
         <Router>
